@@ -1,5 +1,16 @@
 const msgpack = require('@msgpack/msgpack');
 const Emitter = require('component-emitter');
+exports.protocol = 4;
+
+exports.types = [
+  'CONNECT',
+  'DISCONNECT',
+  'EVENT',
+  'ACK',
+  'ERROR',
+  'BINARY_EVENT',
+  'BINARY_ACK'
+];
 
 exports.CONNECT = 0;
 exports.DISCONNECT = 1;
