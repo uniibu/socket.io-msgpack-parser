@@ -27,6 +27,7 @@ const errorPacket = {
 
 class Encoder {
   encode (packet, callback) {
+    let encoded;
     switch (packet.type) {
       case exports.CONNECT:
       case exports.DISCONNECT:
@@ -34,8 +35,9 @@ class Encoder {
         /* eslint-disable-next-line */
         return callback([JSON.stringify(packet)]);
       default:
+        encoded = msgpack.encode(packet);
         /* eslint-disable-next-line  */
-        return callback([msgpack.encode(packet)]);
+        return callback([Buffer.from(encoded.buffer, encoded.byteOffset, encoded.byteLength)]);
     }
   }
 }
