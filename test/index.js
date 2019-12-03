@@ -5,10 +5,16 @@ const expect = require('expect.js');
 const io = require('socket.io');
 const ioc = require('socket.io-client');
 
-describe('parser', function () {
-  it('allows connection', function (done) {
+describe('parser', function() {
+  let server;
+  let client;
+  afterEach(() => {
+    client.close();
+    server.close();
+  })
+  it('allows connection', function(done) {
     let PORT = 54000;
-    let server = io(PORT, {
+    server = io(PORT, {
       parser: customParser
     });
 
@@ -16,7 +22,7 @@ describe('parser', function () {
       socket.on('hello', done);
     });
 
-    let client = ioc('ws://localhost:' + PORT, {
+    client = ioc('ws://localhost:' + PORT, {
       parser: customParser
     });
 
@@ -25,9 +31,9 @@ describe('parser', function () {
     });
   });
 
-  it('supports binary', function (done) {
+  it('supports binary', function(done) {
     let PORT = 54001;
-    let server = io(PORT, {
+    server = io(PORT, {
       parser: customParser
     });
 
@@ -40,19 +46,19 @@ describe('parser', function () {
       });
     });
 
-    let client = ioc('ws://localhost:' + PORT, {
+    client = ioc('ws://localhost:' + PORT, {
       parser: customParser
     });
 
     client.on('connect', () => {
-      let buf = new Buffer('asdfasdf', 'utf8');
+      let buf = Buffer.from('asdfasdf', 'utf8');
       client.emit('binary', [], { a: 'b' }, buf);
     });
   });
 
-  it('supports acknowledgements', function (done) {
+  it('supports acknowledgements', function(done) {
     let PORT = 54002;
-    let server = io(PORT, {
+    server = io(PORT, {
       parser: customParser
     });
 
@@ -62,7 +68,7 @@ describe('parser', function () {
       });
     });
 
-    let client = ioc('ws://localhost:' + PORT, {
+    client = ioc('ws://localhost:' + PORT, {
       parser: customParser
     });
 
@@ -74,9 +80,9 @@ describe('parser', function () {
     });
   });
 
-  it('supports non-default namespace', function (done) {
+  it('supports non-default namespace', function(done) {
     let PORT = 54003;
-    let server = io(PORT, {
+    server = io(PORT, {
       parser: customParser
     });
 
@@ -84,7 +90,7 @@ describe('parser', function () {
       socket.on('hi', done);
     });
 
-    let client = ioc('ws://localhost:' + PORT + '/chat', {
+    client = ioc('ws://localhost:' + PORT + '/chat', {
       parser: customParser
     });
 
@@ -93,9 +99,9 @@ describe('parser', function () {
     });
   });
 
-  it('supports broadcasting', function (done) {
+  it('supports broadcasting', function(done) {
     let PORT = 54004;
-    let server = io(PORT, {
+    server = io(PORT, {
       parser: customParser
     });
 
@@ -103,7 +109,7 @@ describe('parser', function () {
       server.emit('hey', 'you');
     });
 
-    let client = ioc('ws://localhost:' + PORT, {
+    client = ioc('ws://localhost:' + PORT, {
       parser: customParser
     });
 

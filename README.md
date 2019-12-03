@@ -1,9 +1,15 @@
 
 # socket.io-msgpack-parser
 
-An alternative to the default [socket.io-parser](https://github.com/socketio/socket.io-parser), encoding and decoding packets with [msgpack](http://msgpack.org/).
+An alternative to the default [socket.io-parser](https://github.com/socketio/socket.io-parser), encoding and decoding packets with [@msgpack/msgpack](https://npmjs/@msgpack/msgpack/).
 
 With that parser, the browser build will be a bit heavier (an additional 7.5 KB minified, 3.0 KB gzipped), but each message will be smaller (sent as binary).
+
+## Recommended
+- NodeJs v12
+
+## Required
+- NodeJs v10
 
 ## Usage
 
