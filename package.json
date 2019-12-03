@@ -1,6 +1,6 @@
 {
   "name": "@unibtc/socket.io-msgpack-parser",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "socket.io parser based on msgpack",
   "main": "index",
   "publishConfig": {
